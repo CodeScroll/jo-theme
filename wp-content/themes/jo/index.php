@@ -23,7 +23,7 @@ use Library\Menu;
 
  <?php
   $menu = new Menu();
-  print_r($menu->getMenu());
+  $menu->getMenu();
  ?>
 
 
