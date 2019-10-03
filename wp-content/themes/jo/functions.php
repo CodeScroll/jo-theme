@@ -1,9 +1,17 @@
 <?php
 
+// requires
+
+require_once('Library/ThemeSettings.php');
+require_once('Library/Menu.php');
 
 // Organize function to subfolders
 addSubfolderFunctions();
 
+add_theme_support('menus');
+
+
+// Assets
 if( is_admin() ){
  add_action( 'admin_enqueue_scripts', 'my_theme_admin_styles' );
 }
@@ -58,6 +66,7 @@ if ( !is_admin() ){
 function my_theme_enqueue_styles() {
   
   wp_enqueue_style('bootstrap', get_template_directory_uri().'/assets/css/bootstrap/bootstrap.min.css');
+  wp_enqueue_style('general-css', get_template_directory_uri().'/assets/css/theme.css');
   wp_deregister_script('jquery');
   wp_enqueue_script( 'jquery-3.4.1', get_stylesheet_directory_uri() . '/assets/js/jquery-3.4.1.min.js');
   wp_enqueue_script( 'popper.min.js', get_stylesheet_directory_uri() . '/assets/js/popper.min.js');
