@@ -6,42 +6,45 @@ use Library\ThemeSettings;
 
 class Menu{
 
-	use ThemeSettings;
-
-	private $allMenuItems = array();
 	public function getMenu(){
 
-		$itemsIds = $this->getParentItemsIds();
-		foreach ($this->allMenuItems as $key => $value) {
-			if (in_array($value->ID, $itemsIds)) {
-				echo $value->post_title;
-				echo '<br>';
-			}
-		}
-
+	 	$walker = new CustomMenu();
+	 	wp_nav_menu(array(
+			'menu' => 'Main',
+			'walker'=>$walker
+		));
 	}
-	public function getParentItemsIds(){
+}
 
- 		$itemCounter = 0;
- 		$maxMenuItems = $this->getMaxMenuItemsPrinted();
- 		$localItemIds = array();
-		$this->allMenuItems = wp_get_nav_menu_items('Main');
+class CustomMenu extends \Walker_Nav_Menu {
+  
+  use ThemeSettings;
 
-		foreach ($this->allMenuItems as $key => $value) {
-			
-			if($itemCounter >= $maxMenuItems){
+  private $maxMenuItems = 0 ;
 
-			 break;
-			}
+  function __construct(){
+  	$this->maxMenuItems = $this->getMaxMenuItemsPrinted();
+  }
+  function start_el(&$output, $item, $depth=0, $args=array(), $id = 0) {
+  	static $itemCounter = 0;
+    $itemClasses = '';
 
-			if($value->menu_item_parent == 0){
-				
-				$itemCounter++;
-			}
+    if($itemCounter < $this->maxMenuItems){
 
-			array_push($localItemIds, $value->ID);
-		}
+     foreach ($item->classes as $key => $value) {
+     	$itemClasses .= $value.' ';
+     }
+  	 $output .= '<ul>';	
+  	 $output .= "<li class='".$itemClasses."'>".$item->post_title."</li>";
+    }
 
-	 return $localItemIds;
-	}
+  	if($item->menu_item_parent == 0){
+  	 $itemCounter++;	
+  	}
+  }
+
+  function end_el(&$output, $item, $depth=0, $args=array(), $id = 0) {
+  	$output .= '</ul>';
+  }
+  
 }
