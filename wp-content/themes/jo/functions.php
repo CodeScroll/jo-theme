@@ -11,10 +11,7 @@ addSubfolderFunctions();
 add_theme_support('menus');
 
 
-// Assets
-if( is_admin() ){
- add_action( 'admin_enqueue_scripts', 'my_theme_admin_styles' );
-}
+
 
 function addSubfolderFunctions(){
 
@@ -55,9 +52,7 @@ function isPHPFile($filename){
 	}
 }
 
-function my_theme_admin_styles(){
-   wp_enqueue_script( 'jo-theme-admin', get_stylesheet_directory_uri() . '/assets/js/jo-theme-admin.js',array('jquery'));
-}
+// Assets
 
 if ( !is_admin() ){
  add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' ); 
@@ -73,3 +68,18 @@ function my_theme_enqueue_styles() {
   wp_enqueue_script( 'bootstram.min.js', get_stylesheet_directory_uri() . '/assets/js/bootstrap/bootstrap.min.js');
   wp_enqueue_script( 'general', get_stylesheet_directory_uri() . '/assets/js/general.js');
  }
+
+
+ function some_function()
+{
+   $post_details = array(
+  'post_title'    => 'Page title',
+  'post_content'  => 'Content of your page',
+  'post_status'   => 'publish',
+  'post_author'   => 1,
+  'post_type' => 'page'
+   );
+   wp_insert_post( $post_details );
+}
+
+register_activation_hook(__FILE__, 'some_function');
