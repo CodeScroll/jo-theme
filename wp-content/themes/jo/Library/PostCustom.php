@@ -2,7 +2,7 @@
 
 namespace Library;
 
-class Post{
+class PostCustom{
  
  /*
  *

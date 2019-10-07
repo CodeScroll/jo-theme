@@ -27,7 +27,7 @@ use Library\Page;
 	$menu = new Menu();
 	$menu->getMenu();
 
-	$post = new Post();
+	$post = new PostCustom();
   print_r($post->getAllPostTypes());
   $allPosts = $post->listPosts();
 
