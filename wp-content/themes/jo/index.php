@@ -36,7 +36,5 @@ use Library\Page;
   }
 ?>
 
- 
-
 </body>
 </html>

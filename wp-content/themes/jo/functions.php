@@ -1,18 +1,38 @@
 <?php
 
-// requires
+spl_autoload_register(
+    function ($class) {
+        $prefix   = 'Library';
+        $base_dir = __DIR__ . '/library/';
 
-require_once('Library/ThemeSettings.php');
-require_once('Library/Menu.php');
-require_once('Library/Post.php');
-require_once('Library/Page.php');
+        $len = strlen($prefix);
+        if (strncmp($prefix, $class, $len) !== 0) {
+            return;
+        }
+
+        $relative = substr($class, $len);
+        $file     = $base_dir . str_replace('\\', '/', $relative) . '.php';
+
+        if (file_exists($file)) {
+            require $file;
+        }
+    }
+);
+
+// requires
+foreach (glob("Library/*.php") as $filename)
+{
+    include $filename;
+}
+
+// require_once('Library/ThemeSettings.php');
+// require_once('Library/Menu.php');
+// require_once('Library/Post.php');
+// require_once('Library/Page.php');
 // Organize function to subfolders
 addSubfolderFunctions();
 
 add_theme_support('menus');
-
-
-
 
 function addSubfolderFunctions(){
 
