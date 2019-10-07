@@ -1,7 +1,8 @@
 <?php
 
 use Library\Menu;
-
+use Library\Post;
+use Library\Page;
 ?>
 
 <!DOCTYPE html>
@@ -26,27 +27,9 @@ use Library\Menu;
 	$menu = new Menu();
 	$menu->getMenu();
 
-	if (is_front_page()) {
-	 include locate_template('templates/homepage.php');
-	} 
-
-$terms = get_terms(
-    array(
-        'taxonomy'   => 'book_category',
-        'hide_empty' => false,
-    )
-);
-
-// Check if any term exists
-if ( ! empty( $terms ) && is_array( $terms ) ) {
-    // Run a loop and print them all
-    foreach ( $terms as $term ) { ?>
-        <a href="<?php echo esc_url( get_term_link( $term ) ) ?>">
-            <?php echo $term->name; ?>
-        </a><?php
-    }
-} 
-
+	$post = new Post();
+  $post->getAllPostTypes();
+  $post->listPosts();
 ?>
 
  

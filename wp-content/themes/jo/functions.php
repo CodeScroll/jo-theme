@@ -4,7 +4,8 @@
 
 require_once('Library/ThemeSettings.php');
 require_once('Library/Menu.php');
-
+require_once('Library/Post.php');
+require_once('Library/Page.php');
 // Organize function to subfolders
 addSubfolderFunctions();
 
