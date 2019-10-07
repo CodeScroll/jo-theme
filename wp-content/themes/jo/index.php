@@ -21,12 +21,18 @@ use Library\Menu;
 
 <body>
 
- <?php
-  $menu = new Menu();
-  $menu->getMenu();
- ?>
+<?php
 
+	$menu = new Menu();
+	$menu->getMenu();
 
+	if (is_front_page()) {
+	 include locate_template('templates/homepage.php');
+	} 
+
+?>
+
+ 
 
 </body>
 </html>
