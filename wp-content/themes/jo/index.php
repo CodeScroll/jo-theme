@@ -28,8 +28,12 @@ use Library\Page;
 	$menu->getMenu();
 
 	$post = new Post();
-  $post->getAllPostTypes();
-  $post->listPosts();
+  print_r($post->getAllPostTypes());
+  $allPosts = $post->listPosts();
+
+  foreach ($allPosts as $key => $value) {
+    echo '<a href="'.$value['link'].'">'.$value['title'].'</a>';
+  }
 ?>
 
  
